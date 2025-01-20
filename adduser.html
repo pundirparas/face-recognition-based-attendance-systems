@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New User</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="bg-cover bg-center h-screen flex items-center justify-center p-4" style="background-image: url('/static/images/01.jpg');">
+    <div class="bg-white p-8 rounded-lg shadow-md w-96 fade-in">
+        <h1 class="text-3xl font-bold mb-6 text-blue-600 text-center">Add New User</h1>
+        
+        {% if message %}
+        <div class="alert alert-success">{{ message }}</div>
+        {% endif %}
+
+        <form action="/adduser" method="post" class="space-y-4">
+            <div>
+                <label for="newusername" class="block text-gray-700 font-bold mb-2">Name</label>
+                <input type="text" name="newusername" id="newusername" 
+                    class="input-field" placeholder="Enter Full Name" required>
+            </div>
+            
+            <div>
+                <label for="newuserid" class="block text-gray-700 font-bold mb-2">Roll Number</label>
+                <input type="text" name="newuserid" id="newuserid"
+                    class="input-field" placeholder="Enter Roll Number" required>
+            </div>
+            
+            <button type="submit" class="btn btn-blue">Capture Face</button>
+        </form>
+
+        <div class="mt-6 text-center">
+            <a href="/" class="link">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

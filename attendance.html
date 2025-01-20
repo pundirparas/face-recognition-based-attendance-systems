@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Records</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="bg-cover bg-center h-screen flex items-center justify-center p-4" style="background-image: url('/static/images/01.jpg');">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-xl fade-in">
+        <h1 class="text-3xl font-bold mb-6 text-blue-600 text-center">Attendance Records</h1>
+        
+        <form action="/attendance" method="post" class="mb-6 flex space-x-2">
+            <input type="date" name="date" class="input-field" required>
+            <button type="submit" class="btn btn-blue">View Attendance</button>
+        </form>
+
+        {% if message %}
+        <div class="alert alert-warning">{{ message }}</div>
+        {% endif %}
+
+        {% if names %}
+        <div class="overflow-x-auto">
+            <table class="w-full border-collapse">
+                <thead>
+                    <tr class="bg-blue-100">
+                        <th class="p-3 border text-left">Name</th>
+                        <th class="p-3 border text-left">Roll Number</th>
+                        <th class="p-3 border text-left">Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for name, roll, time in zip(names, rolls, times) %}
+                    <tr class="hover:bg-gray-50">
+                        <td class="p-3 border">{{ name }}</td>
+                        <td class="p-3 border">{{ roll }}</td>
+                        <td class="p-3 border">{{ time }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="mt-4 text-center text-gray-600">Total Attendance: <strong>{{ count }}</strong></div>
+        </div>
+        {% endif %}
+
+        <div class="mt-6 text-center">
+            <a href="/" class="link">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

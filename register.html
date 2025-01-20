@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registered Users</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="bg-cover bg-center h-screen flex items-center justify-center p-4" style="background-image: url('/static/images/01.jpg');">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-xl fade-in">
+        <h1 class="text-3xl font-bold mb-6 text-blue-600 text-center">Registered Users</h1>
+        
+        {% if error %}
+        <div class="alert alert-error">{{ error }}</div>
+        {% endif %}
+
+        <div class="mb-4 text-center">
+            <p class="text-gray-600">Total Registered Users: <strong>{{ total }}</strong></p>
+        </div>
+        
+        {% if names and rolls %}
+        <table class="w-full border-collapse">
+            <thead>
+                <tr class="bg-blue-100">
+                    <th class="p-3 border text-left">Name</th>
+                    <th class="p-3 border text-left">Roll Number</th>
+                    <th class="p-3 border text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for name, roll in zip(names, rolls) %}
+                <tr class="hover:bg-gray-50">
+                    <td class="p-3 border">{{ name }}</td>
+                    <td class="p-3 border">{{ roll }}</td>
+                    <td class="p-3 border text-center">
+                        <form action="{{ url_for('deleteuser', username=name + '_' + roll) }}" method="post" class="inline">
+                            <button type="submit" class="btn btn-red">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="text-center text-gray-600 py-4">No users registered yet.</div>
+        {% endif %}
+
+        <div class="mt-6 text-center">
+            <a href="/" class="btn btn-blue">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>
